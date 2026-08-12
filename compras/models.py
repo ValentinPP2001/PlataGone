@@ -4,7 +4,7 @@ class UnidadMedida(models.Model):
     nombre = models.CharField(max_length=32)
     descripcion = models.TextField(null=True, blank=True)
     class Meta:
-        db_Table = 'unidad_medida'
+        db_table = 'unidad_medida'
 
 class CategoriaProducto(models.Model):
     nombre = models.CharField(max_length=32)
@@ -30,7 +30,7 @@ class Comercio(models.Model):
     direccion = models.TextField(null=True, blank=True)
     rubros = models.ManyToManyField(Rubro)
     class Meta:
-        db_Table = 'comercio'
+        db_table = 'comercio'
 
 class Compra(models.Model):
     fecha_hora = models.DateTimeField(auto_now_add=True)

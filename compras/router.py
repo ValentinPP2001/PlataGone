@@ -20,6 +20,6 @@ router.register(r'comercio', ComercioView, basename='comercio')
 router.register(r'compra', CompraView, basename='compra')
 router.register(r'compra-producto', CompraProductoView, basename='compra-producto')
 
-urlpatterns = [
+urlpatterns_compras = [
     path('', include(router.urls)),
 ]

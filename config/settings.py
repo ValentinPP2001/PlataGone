@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+from decouple import config
+from corsheaders.defaults import default_headers
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
 
@@ -37,6 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'drf_spectacular',
+    'compras'
 ]
 
 MIDDLEWARE = [
@@ -102,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
@@ -115,7 +127,66 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(hours=1),
+    "SIGNING_KEY": SECRET_KEY,
+}
+
+BASE_URL = 'platagone'
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API de Viviendas Círculo Cerrado',
+    'DESCRIPTION': 'Documentación del sistema de gestión de expedientes, personas e inscripciones.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Configuramos el componente de seguridad para que ReDoc muestre el botón de Authorize
+    'SECURITY': [{'BearerAuth': []}],
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': rf'/{BASE_URL}/',
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+    "http://cc-viviendas-api-dev.trenquelauquen.gov.ar",
+    "https://cc-viviendas-api-dev.trenquelauquen.gov.ar",
+    "https://cc-viviendas.trenquelauquen.gov.ar",
+    "https://portalciudadano.trenquelauquen.gov.ar"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+    "http://cc-viviendas-api-dev.trenquelauquen.gov.ar",
+    "https://cc-viviendas-api-dev.trenquelauquen.gov.ar",
+    "https://cc-viviendas.trenquelauquen.gov.ar",
+    "https://portalciudadano.trenquelauquen.gov.ar"
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    'Authorization',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
