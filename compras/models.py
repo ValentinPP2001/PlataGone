@@ -44,7 +44,7 @@ class Comercio(models.Model):
         return f"({self.id}) {self.nombre}"
 
 class Compra(models.Model):
-    fecha_hora = models.DateTimeField(auto_now_add=True)
+    fecha_hora = models.DateTimeField()
     comercio = models.ForeignKey(Comercio, on_delete=models.PROTECT)
     total = models.DecimalField(max_digits=16, decimal_places=2)
     class Meta:
