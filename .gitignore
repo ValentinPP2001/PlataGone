@@ -1,1 +1,14 @@
+# Variables de entorno
+.env
+
+# Entornos
 env/
+venv/
+
+# Archivos estaticos
+staticfiles/
+
+# Archivos compilados
+*.pyc
+__pycache__/
+scripts_migrate/jsons_for_migrate/
