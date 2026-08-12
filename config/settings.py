@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
     'compras',
-    'comprobantes'
+    'comprobantes',
+    'gastos'
 ]
 
 MIDDLEWARE = [
