@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'compras',
     'comprobantes',
-    'gastos'
+    'gastos',
+    'tarjetas',
+    'finanzas',
+    'movimientos'
 ]
 
 MIDDLEWARE = [
