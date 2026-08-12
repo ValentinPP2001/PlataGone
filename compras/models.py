@@ -2,15 +2,20 @@ from django.db import models
 
 class UnidadMedida(models.Model):
     nombre = models.CharField(max_length=32)
+    abreviatura = models.CharField(max_length=6)
     descripcion = models.TextField(null=True, blank=True)
     class Meta:
         db_table = 'unidad_medida'
+    def __str__(self):
+        return f"({self.abreviatura}) {self.nombre}"
 
 class CategoriaProducto(models.Model):
     nombre = models.CharField(max_length=32)
     descripcion = models.TextField(null=True, blank=True)
     class Meta:
         db_table = 'categoria_producto'
+    def __str__(self):
+        return f"({self.id}) {self.nombre}"
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=64)
@@ -18,19 +23,25 @@ class Producto(models.Model):
     unidad_medida = models.ForeignKey(UnidadMedida, on_delete=models.PROTECT)
     class Meta:
         db_table = 'producto'
+    def __str__(self):
+        return f"({self.categoria.nombre}) ({self.unidad_medida.abreviatura}) {self.nombre}"
 
 class Rubro(models.Model):
     nombre = models.CharField(max_length=64)
     descripcion = models.TextField(null=True, blank=True)
     class Meta:
         db_table = 'rubro'
+    def __str__(self):
+        return f"({self.id}) {self.nombre}"
 
 class Comercio(models.Model):
     nombre = models.CharField(max_length=64)
-    direccion = models.TextField(null=True, blank=True)
+    direccion = models.CharField(max_length=64, null=True, blank=True)
     rubros = models.ManyToManyField(Rubro)
     class Meta:
         db_table = 'comercio'
+    def __str__(self):
+        return f"({self.id}) {self.nombre}"
 
 class Compra(models.Model):
     fecha_hora = models.DateTimeField(auto_now_add=True)
