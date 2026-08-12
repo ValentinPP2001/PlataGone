@@ -3,7 +3,7 @@ from compras.models import Compra
 
 class CategoriaGasto(models.Model):
     nombre=models.CharField(max_length=64)
-    icono=models.ImageField(upload_to='categoria_gasto/iconos/')
+    icono=models.ImageField(upload_to='categoria_gasto/iconos/', null=True, blank=True)
     class Meta:
         db_table='categoria_gasto'
     def __str__(self):
