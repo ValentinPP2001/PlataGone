@@ -10,5 +10,8 @@ staticfiles/
 
 # Archivos compilados
 *.pyc
+**/__pycache__/
 __pycache__/
-scripts_migrate/jsons_for_migrate/
+
+# Base de datos local
+*.sqlite3
